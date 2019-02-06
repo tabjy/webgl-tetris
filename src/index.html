@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en-ca">
+<head>
+    <meta charset="utf-8">
+    <title><%= require('../package.json').name %></title>
+</head>
+<body class="d-flex flex-column h-100">
+<main role="main" class="flex-shrink-0">
+    <div class="container">
+        <h1 class="mt-5"><%= require('../package.json').name %></h1>
+        <p class="lead"><%= require('../package.json').description %></p>
+        <hr />
+        <canvas id="canvas" height="512" width="512">
+            <p>Your browser is too old to support <code>canvas</code> API.</p>
+        </canvas>
+    </div>
+</main>
+</body>
+</html>

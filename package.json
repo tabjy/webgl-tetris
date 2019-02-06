@@ -1,0 +1,31 @@
+{
+  "name": "cmpt361-assign1",
+  "version": "1.0.0",
+  "description": "CMPT-361 Assignment 1: Tetris!",
+  "private": true,
+  "scripts": {
+    "dev": "webpack-dev-server --progress --mode development",
+    "build": "webpack -p --progress --mode production",
+    "lint": "standard",
+    "test": "standard && echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kangcheng Xu",
+  "license": "MIT",
+  "devDependencies": {
+    "bootstrap": "^4.2.1",
+    "css-loader": "^2.1.0",
+    "file-loader": "^3.0.1",
+    "gl-matrix": "^3.0.0",
+    "glslify-loader": "^2.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.5.0",
+    "node-sass": "^4.11.0",
+    "raw-loader": "^1.0.0",
+    "sass-loader": "^7.1.0",
+    "standard": "^12.0.1",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.28.4",
+    "webpack-cli": "^3.2.1",
+    "webpack-dev-server": "^3.1.14"
+  }
+}
