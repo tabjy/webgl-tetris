@@ -11,12 +11,9 @@ class Game {
     if (!Game.gl) {
       throw new Error('failed to get WebGL context')
     }
-  }
 
-  static attachGameObject (gameObject) {
-    this.gameObjects[gameObject] = gameObject
+    // TODO: init world
   }
-
 }
 
 export default Game
