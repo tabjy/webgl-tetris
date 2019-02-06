@@ -3,6 +3,10 @@ class Component {
     return this.gameObject.tag
   }
 
+  get name () {
+    return this.gameObject.name
+  }
+
   get transform () {
     return this.gameObject.transform
   }

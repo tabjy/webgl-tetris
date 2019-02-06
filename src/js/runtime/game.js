@@ -1,6 +1,7 @@
+import World from './world'
+
 class Game {
   static init (canvasElem) {
-    this.gameObjects = {} // hash map instead of list
     this.deltaTime = 0
 
     if (!window.WebGLRenderingContext) {
@@ -12,7 +13,7 @@ class Game {
       throw new Error('failed to get WebGL context')
     }
 
-    // TODO: init world
+    Game.world = World.getInstance()
   }
 }
 

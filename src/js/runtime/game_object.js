@@ -24,16 +24,17 @@ class GameObject {
   }
 
   addComponent (componentClass) {
-    if (this.components[componentClass]) {
+    // BUG: using simple class name could result name clashes
+    if (this.components[componentClass.name]) {
       throw new Error(`${componentClass.name} is already attached to ${this.tag}`)
     }
 
-    this.components[componentClass] = new componentClass(this)
+    this.components[componentClass.name] = new componentClass(this)
   }
 
   // XXX: possible to return a null pointer
   getComponent (componentClass) {
-    return this.components[componentClass]
+    return this.components[componentClass.name]
   }
 }
 
