@@ -1,4 +1,6 @@
+// TODO: generate manifests automatically from assets folder
 export default {
+  // TODO: determine attributes, varyings, uniforms programmatically
   shaders: [
     {
       id: 'passthrough.vert',
@@ -8,30 +10,22 @@ export default {
         {
           name: 'vPosition',
           type: 'vec4'
-        },
-        {
-          name: 'vColor',
-          type: 'vec4'
         }
       ],
-      varyings: [
-        {
-          name: 'fColor',
-          type: 'vec4'
-        }
-      ]
+      varyings: [],
+      uniforms: []
     },
     {
       id: 'passthrough.frag',
       type: 'FRAGMENT_SHADER',
       url: require('../assets/shaders/passthrough.frag.glsl'),
       attributes: [],
-      varyings: [
+      varyings: [],
+      uniforms: [
         {
           name: 'fColor',
           type: 'vec4'
-        }],
-      uniforms: []
+        }]
     }
   ]
 }

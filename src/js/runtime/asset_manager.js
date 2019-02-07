@@ -5,7 +5,7 @@ class AssetManager {
     AssetManager.eventHandlers = {}
     AssetManager.promises = []
     AssetManager.assets = {
-      shaders: {}
+      shader: {}
       // TODO: support other resource type
     }
 
@@ -35,7 +35,7 @@ class AssetManager {
         return res.text()
       }).then((src) => {
         shader = { ...shader, src }
-        AssetManager.assets.shaders[shader.id] = shader
+        AssetManager.assets.shader[shader.id] = shader
         AssetManager._dispatch('progress', shader)
 
         return Promise.resolve()
@@ -51,11 +51,18 @@ class AssetManager {
     throw new Error('abort() not yet implemented')
   }
 
-  static getShader (id) {
-    const shaderInfo = AssetManager.assets.shaders[id]
-    if (!shaderInfo) {
-      throw new Error(`shader '${id}' is either not registered or not yet downloaded`)
+  static getAsset (type, id) {
+    const typeCollection = AssetManager.assets[type]
+    const asset = (typeCollection || {})[id]
+    if (!asset) {
+      throw new Error(`${type}: '${id}', is either not registered or not yet downloaded`)
     }
+
+    return asset
+  }
+
+  static getShader (id) {
+    const shaderInfo = AssetManager.getAsset('shader', id)
 
     const shader = Game.gl.createShader(Game.gl[shaderInfo.type])
 

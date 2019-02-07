@@ -1,8 +1,11 @@
-import { GameObject } from '../../runtime'
+import { GameObject, Renderer, Mesh } from '../../runtime'
 
 class Square extends GameObject {
   constructor () {
-    super('square')
+    super()
+
+    this.addComponent(Renderer)
+    this.addComponent(Mesh)
   }
 }
 

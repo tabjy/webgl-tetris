@@ -1,5 +1,6 @@
 import Component from './component'
 import Game from './game'
+import World from './world'
 
 import { Vector2 } from './vectors'
 
@@ -7,7 +8,7 @@ class Transform extends Component {
   constructor (gameObject) {
     super(gameObject)
 
-    this.parent = (gameObject.tag === 'world') ? null : Game.world.transform
+    this.parent = (gameObject.tag === World.name) ? null : Game.world.transform
     this.children = {}
 
     // relative to parent
@@ -34,7 +35,7 @@ class Transform extends Component {
       throw new Error('parent cannot be null')
     }
 
-    if (this.tag === 'world') {
+    if (this.tag === World.name) {
       throw new Error('cannot set parent of "world"')
     }
 
@@ -47,7 +48,7 @@ class Transform extends Component {
   }
 
   detachChildren () {
-    if (this.tag === 'world') {
+    if (this.tag === World.name) {
       throw new Error('"world" cannot detach its children')
     }
 

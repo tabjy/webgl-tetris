@@ -14,8 +14,8 @@ class GameObject {
   }
 
   constructor (tag, name) {
-    this._tag = tag
-    this._name = name || this.__proto__.constructor.name + '#' + Date.now().toString(36) +
+    this._tag = tag || this.__proto__.constructor.name
+    this._name = name || this._tag + '#' + Date.now().toString(36) +
       Math.random().toString(36).substr(2, 5)
 
     this.components = {}
@@ -23,13 +23,13 @@ class GameObject {
     this.addComponent(Transform)
   }
 
-  addComponent (componentClass) {
+  addComponent (componentClass, implementationClass) {
     // BUG: using simple class name could result name clashes
     if (this.components[componentClass.name]) {
-      throw new Error(`${componentClass.name} is already attached to ${this.tag}`)
+      throw new Error(`a(n) ${componentClass.name} is already attached to ${this.tag}`)
     }
 
-    this.components[componentClass.name] = new componentClass(this)
+    this.components[componentClass.name] = new (implementationClass || componentClass)(this)
   }
 
   // XXX: possible to return a null pointer

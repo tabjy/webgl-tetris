@@ -8,10 +8,14 @@ class Game {
       throw new Error('this browser does not support WebGL')
     }
 
-    Game.gl = canvasElem.getContext('webgl')
-    if (!Game.gl) {
+    const gl = canvasElem.getContext('webgl')
+    if (!gl) {
       throw new Error('failed to get WebGL context')
     }
+
+    Game.vBuffer = gl.createBuffer()
+
+    Game.gl = gl
 
     Game.world = World.getInstance()
   }

@@ -1,4 +1,4 @@
-import { Game, AssetManager } from '../runtime'
+import { Game, AssetManager, Renderer } from '../runtime'
 
 import Square from './game_objects/square'
 
@@ -31,6 +31,20 @@ function main () {
 
   const square = new Square()
   square.transform.setParent(Game.world.transform)
+  square.getComponent(Renderer).debug(1)
+
+  const square2 = new Square()
+  square2.transform.setParent(Game.world.transform)
+  square2.getComponent(Renderer).debug(0)
+
+  const cb = () => {
+    Game.gl.clear(Game.gl.COLOR_BUFFER_BIT)
+    square.getComponent(Renderer).render()
+    square2.getComponent(Renderer).render()
+    window.requestAnimationFrame(cb)
+  }
+
+  cb()
 }
 
 export default {

@@ -2,7 +2,7 @@ import GameObject from './game_object'
 
 class World extends GameObject {
   constructor () {
-    super('world', 'world')
+    super()
   }
 
   static getInstance () {

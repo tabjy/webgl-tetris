@@ -1,10 +1,10 @@
 // TODO: integrate with Vector3 in the future
 class Color {
-  constructor (r, g, b, a) {
-    this.r = r || 0
-    this.g = g || 0
-    this.b = b || 0
-    this.a = a || 1
+  constructor (r = 0, g = 0, b = 0, a = 0, base = 1) {
+    this.r = r
+    this.g = g
+    this.b = b
+    this.a = a
   }
 
   flatten () {
