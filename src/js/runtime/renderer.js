@@ -3,7 +3,6 @@ import Mesh from './mesh'
 import AssetManager from './asset_manager'
 import Game from './game'
 import Util from './util'
-import { Color } from './index'
 
 class Renderer extends Component {
   constructor (gameObject) {
@@ -81,6 +80,7 @@ class Renderer extends Component {
   }
 
   debug (seed) {
+    /*
     const mesh = this.gameObject.getComponent(Mesh)
     if (!mesh) {
       // nothing to render
@@ -104,9 +104,18 @@ class Renderer extends Component {
       }
       this.uniforms.fColor.buffer = Color.red.flatten()
     }
+    */
   }
 
   render () {
+    const mesh = this.gameObject.getComponent(Mesh)
+    if (!mesh) {
+      // nothing to render
+      this.attributes.vPosition.buffer = []
+      return
+    }
+    this.attributes.vPosition.buffer = mesh.getVertexArrayBuffer()
+
     const gl = Game.gl
     gl.useProgram(this.shaderProgram)
     gl.bindBuffer(gl.ARRAY_BUFFER, Game.gl.vBuffer)

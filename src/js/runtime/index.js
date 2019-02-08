@@ -8,7 +8,6 @@ import Mesh from './mesh'
 import Renderer from './renderer'
 import Transform from './transform'
 import { Vector2 } from './vectors'
-import World from './world'
 
 export {
   AssetManager,
@@ -20,6 +19,5 @@ export {
   Mesh,
   Renderer,
   Transform,
-  Vector2,
-  World
+  Vector2
 }

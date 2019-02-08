@@ -1,6 +1,6 @@
-import World from './world'
 import Behavior from './behavior'
 import Renderer from './renderer'
+import GameObject from './game_object'
 
 class Game {
   static init (canvasElem) {
@@ -19,9 +19,9 @@ class Game {
     Game.gl = gl
     Game.gl.vBuffer = gl.createBuffer()
 
-    Game.world = World.getInstance()
+    Game.world = new GameObject('World')
 
-    setInterval(Game.onFixedUpdateHandler, Game.FIXED_UPDATE_RATE)
+    setInterval(Game.onFixedUpdateHandler, 1000 / Game.FIXED_UPDATE_RATE)
 
     const animationFrameCallback = () => {
       Game.onUpdateHandler()
@@ -92,6 +92,6 @@ class Game {
 }
 
 // default settings
-Game.FIXED_UPDATE_RATE = 1000 / 60 // 60Hz
+Game.FIXED_UPDATE_RATE = 60 // default to 60Hz
 
 export default Game

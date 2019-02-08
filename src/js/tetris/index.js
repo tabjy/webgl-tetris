@@ -1,4 +1,4 @@
-import { Game, AssetManager, Renderer } from '../runtime'
+import { Game, AssetManager, Color, Vector2 } from '../runtime'
 
 import Square from './game_objects/square'
 
@@ -33,12 +33,17 @@ function main () {
   window.Game.world.addComponent(FPSCounter)
 
   const square = new Square()
-  square.transform.setParent(Game.world.transform)
-  square.getComponent(Renderer).debug(1)
+  window.square = square
+  square.setColor(Color.red)
+  square.transform.translate(new Vector2(0.5, 0.5))
 
-  const square2 = new Square()
-  square2.transform.setParent(Game.world.transform)
-  square2.getComponent(Renderer).debug(0)
+  square.transform.setParent(Game.world.transform)
+
+  // const square2 = new Square()
+  // square2.transform.setParent(Game.world.transform)
+  // square2.getComponent(Renderer).debug(0)
+  //
+  // window.square2 = square2
 }
 
 export default {
