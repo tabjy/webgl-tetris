@@ -29,9 +29,11 @@ class Game {
       Game.onLateUpdateHandler()
 
       window.requestAnimationFrame(animationFrameCallback)
+      // setTimeout(animationFrameCallback, 0)
     }
     // TODO: polyfill for old browsers
     window.requestAnimationFrame(animationFrameCallback)
+    // setTimeout(animationFrameCallback, 0)
   }
 
   static onUpdateHandler () {

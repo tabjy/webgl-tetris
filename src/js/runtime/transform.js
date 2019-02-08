@@ -55,17 +55,20 @@ class Transform extends Component {
 
     const parentWorldTransform = this.parent.toWorldTransform()
 
-    ret.position.x = ret.position.x * Math.cos(this.rotation) + ret.position.y *
-      Math.sin(this.rotation)
-    ret.position.y = ret.position.x * -Math.sin(this.rotation) + ret.position.y *
-      Math.cos(this.rotation)
+    ret.rotation = parentWorldTransform.rotation + this.rotation
 
-    ret.position.x = parentWorldTransform.scaling.x * ret.position.x
-    ret.position.y = parentWorldTransform.scaling.y * ret.position.y
+    ret.position.x = this.position.x * Math.cos(parentWorldTransform.rotation) -
+      this.position.y * Math.sin(parentWorldTransform.rotation)
+    ret.position.y = this.position.x * Math.sin(parentWorldTransform.rotation) +
+      this.position.y * Math.cos(parentWorldTransform.rotation)
+
+    ret.position.x *= parentWorldTransform.scaling.x
+    ret.position.y *= parentWorldTransform.scaling.y
+
+    // ret.position.x += parentWorldTransform.position.x
+    // ret.position.y += parentWorldTransform.position.y
 
     ret.scaling = ret.scaling.mul(parentWorldTransform.scaling)
-
-    ret.rotation += parentWorldTransform.rotation
     return ret
   }
 

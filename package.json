@@ -4,7 +4,7 @@
   "description": "CMPT-361 Assignment 1: Tetris!",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --progress --mode development",
+    "dev": "webpack-dev-server --progress --mode development --host 0.0.0.0",
     "build": "webpack -p --progress --mode production",
     "lint": "standard",
     "test": "standard && echo \"Error: no test specified\" && exit 1"

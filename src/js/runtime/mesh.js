@@ -9,7 +9,7 @@ class Mesh extends Component {
       new Vector2(-0.25, -0.25),
       new Vector2(-0.25, 0.25),
       new Vector2(0.25, 0.25),
-      new Vector2(0.25, -0.25),
+      new Vector2(0.25, -0.25)
     ] // Vector2 array
 
     this.colors = [] // Color array
@@ -19,22 +19,28 @@ class Mesh extends Component {
 
   // as in WebGL clip coordinates
   getVertexArrayBuffer () {
-    // TODO: calculate vertices from transform (as in clip coordinates)
+    const transformed = []
+
     const localTransform = this.gameObject.transform
     const worldTransform = localTransform.toWorldTransform()
 
+    for (let vertex of this.vertices) {
+      let x = vertex.x * worldTransform.scaling.x * Math.cos(worldTransform.rotation) - vertex.y *
+        worldTransform.scaling.y * Math.sin(worldTransform.rotation)
+      let y = vertex.x * worldTransform.scaling.x * Math.sin(worldTransform.rotation) + vertex.y *
+        worldTransform.scaling.y * Math.cos(worldTransform.rotation)
+
+      x += worldTransform.position.x
+      y += worldTransform.position.y
+
+      // TODO: transform to WebGL clip coordinates
+
+      transformed.push(new Float32Array([x, y]))
+    }
+
     let buffer = []
     for (let vertIdx of this.faces) {
-      const vertex = this.vertices[vertIdx]
-      const res = vertex.mul(1)
-
-      res.x = vertex.x * worldTransform.scaling.x * Math.cos(-localTransform.rotation) - vertex.y * worldTransform.scaling.y * Math.sin(-localTransform.rotation)
-      res.y = vertex.x * worldTransform.scaling.x * Math.sin(-localTransform.rotation) + vertex.y * worldTransform.scaling.y * Math.cos(-localTransform.rotation)
-
-      res.x += worldTransform.position.x
-      res.y += worldTransform.position.y
-
-      buffer = [...buffer, ...res.flatten()]
+      buffer = [...buffer, ...transformed[vertIdx]]
     }
 
     return new Float32Array(buffer)
