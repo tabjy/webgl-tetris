@@ -109,7 +109,7 @@ class Renderer extends Component {
   render () {
     const gl = Game.gl
     gl.useProgram(this.shaderProgram)
-    gl.bindBuffer(gl.ARRAY_BUFFER, Game.vBuffer)
+    gl.bindBuffer(gl.ARRAY_BUFFER, Game.gl.vBuffer)
 
     // marshal buffers for attributes
     let pos = 0

@@ -1,7 +1,7 @@
 import Component from './component'
 
 class Behavior extends Component {
-  onAttach () {
+  onStart () {
     // stub
   }
 
@@ -14,10 +14,6 @@ class Behavior extends Component {
   }
 
   onFixedUpdate () {
-    // stub
-  }
-
-  onDetach () {
     // stub
   }
 }

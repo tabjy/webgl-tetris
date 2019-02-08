@@ -9,10 +9,12 @@
     <div class="container">
         <h1 class="mt-5"><%= require('../package.json').name %></h1>
         <p class="lead"><%= require('../package.json').description %></p>
-        <hr />
+        <hr/>
         <canvas id="canvas" height="512" width="512">
             <p>Your browser is too old to support <code>canvas</code> API.</p>
         </canvas>
+        <hr/>
+        <p>FPS: <span id="fps"></span></p>
     </div>
 </main>
 </body>

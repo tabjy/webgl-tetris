@@ -44,7 +44,7 @@ class Transform extends Component {
     parent.children[this.name] = this
     this.parent = parent
 
-    // TODO: correct transform
+    // TODO: correct transform relative to parent
   }
 
   detachChildren () {
@@ -53,8 +53,8 @@ class Transform extends Component {
     }
 
     // grandparent adopts children
-    for (let child of this.children) {
-      child.setParent(this.parent)
+    for (let key of Object.keys(this.children)) {
+      this.children[key].setParent(this.parent)
     }
   }
 }

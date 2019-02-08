@@ -1,4 +1,5 @@
 import Transform from './transform'
+import Behavior from './behavior'
 
 class GameObject {
   get tag () {
@@ -23,18 +24,47 @@ class GameObject {
     this.addComponent(Transform)
   }
 
-  addComponent (componentClass, implementationClass) {
-    // BUG: using simple class name could result name clashes
-    if (this.components[componentClass.name]) {
-      throw new Error(`a(n) ${componentClass.name} is already attached to ${this.tag}`)
+  addComponent (ImplementationClass) {
+    // BUG: possible name clash
+    if (this.components[ImplementationClass.name]) {
+      throw new Error(`a(n) ${ImplementationClass.name} is already attached to ${this.tag}`)
     }
 
-    this.components[componentClass.name] = new (implementationClass || componentClass)(this)
+    const component = new ImplementationClass(this)
+
+    if (component instanceof Behavior) {
+      component.onStart()
+    }
+
+    this.components[ImplementationClass.name] = component
   }
 
+  // return (any) one component of this class or its subclasses
   // XXX: possible to return a null pointer
-  getComponent (componentClass) {
-    return this.components[componentClass.name]
+  getComponent (InterfaceClass) {
+    for (let key of Object.keys(this.components)) {
+      if (this.components[key] instanceof InterfaceClass) {
+        return this.components[key]
+      }
+    }
+    return null
+  }
+
+  // return a list of component of this class or its subclasses
+  getComponents (InterfaceClass) {
+    const ret = []
+    for (let key of Object.keys(this.components)) {
+      if (!InterfaceClass || this.components[key] instanceof InterfaceClass) {
+        ret.push(this.components[key])
+      }
+    }
+    return ret
+  }
+
+  _iterateGameObject (callback) {
+    for (let key of Object.keys(this.transform.children)) {
+      callback(this.transform.children[key].gameObject)
+    }
   }
 }
 

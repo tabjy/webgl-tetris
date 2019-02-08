@@ -3,6 +3,7 @@ import { Game, AssetManager, Renderer } from '../runtime'
 import Square from './game_objects/square'
 
 import manifest from '../manifest'
+import FPSCounter from './behaviors/fps_counter'
 
 let canvas
 
@@ -29,6 +30,8 @@ function main () {
   // DEBUG: expose the entire state tree for debugging
   window.Game = Game
 
+  window.Game.world.addComponent(FPSCounter)
+
   const square = new Square()
   square.transform.setParent(Game.world.transform)
   square.getComponent(Renderer).debug(1)
@@ -36,15 +39,6 @@ function main () {
   const square2 = new Square()
   square2.transform.setParent(Game.world.transform)
   square2.getComponent(Renderer).debug(0)
-
-  const cb = () => {
-    Game.gl.clear(Game.gl.COLOR_BUFFER_BIT)
-    square.getComponent(Renderer).render()
-    square2.getComponent(Renderer).render()
-    window.requestAnimationFrame(cb)
-  }
-
-  cb()
 }
 
 export default {
