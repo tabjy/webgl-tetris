@@ -6,14 +6,14 @@ class Mesh extends Component {
     super(gameObject)
 
     this.vertices = [
-      new Vector2(-0.25, -0.25),
-      new Vector2(-0.25, 0.25),
       new Vector2(0.25, 0.25),
+      new Vector2(-0.25, 0.25),
+      new Vector2(-0.25, -0.25),
       new Vector2(0.25, -0.25)
     ] // Vector2 array
 
     this.colors = [] // Color array
-    this.faces = [0, 1, 2, 2, 0, 3] // number array indexing this.vertices
+    this.faces = [0, 1, 2, 0, 3, 2] // number array indexing this.vertices
     // this.faceSize = 3 // default to triangle
   }
 
@@ -23,6 +23,7 @@ class Mesh extends Component {
 
     const localTransform = this.gameObject.transform
     const worldTransform = localTransform.toWorldTransform()
+    const glTransform = Game.world.transform
 
     for (let vertex of this.vertices) {
       let x = vertex.x * Math.cos(worldTransform.rotation) - vertex.y * Math.sin(worldTransform.rotation)
@@ -34,9 +35,18 @@ class Mesh extends Component {
       x += worldTransform.position.x
       y += worldTransform.position.y
 
-      // TODO: transform to WebGL clip coordinates
+      // transform to WebGL clip coordinates
 
-      transformed.push(new Float32Array([x, y]))
+      let x2 = x * Math.cos(glTransform.rotation) - y * Math.sin(glTransform.rotation)
+      let y2 = x * Math.sin(glTransform.rotation) + y * Math.cos(glTransform.rotation)
+
+      x2 *= glTransform.scaling.x
+      y2 *= glTransform.scaling.y
+
+      x2 += glTransform.position.x
+      y2 += glTransform.position.y
+
+      transformed.push(new Float32Array([x2, y2]))
     }
 
     let buffer = []
@@ -44,7 +54,10 @@ class Mesh extends Component {
       buffer = [...buffer, ...transformed[vertIdx]]
     }
 
-    return new Float32Array(buffer)
+    return {
+      buffer: new Float32Array(buffer),
+      size: 2
+    }
   }
 }
 

@@ -57,6 +57,10 @@ class Renderer extends Component {
       this.uniforms[props.name] = uniform
     }
 
+    this.onShaderInitialized()
+  }
+
+  onShaderInitialized () {
     this.vPosition = this.attributes['vPosition']
   }
 
@@ -79,34 +83,6 @@ class Renderer extends Component {
     return shader
   }
 
-  debug (seed) {
-    /*
-    const mesh = this.gameObject.getComponent(Mesh)
-    if (!mesh) {
-      // nothing to render
-      this.attributes.vPosition.buffer = []
-      return
-    }
-
-    this.attributes.vPosition.buffer = mesh.getVertexArrayBuffer()
-
-    // DEBUG
-    console.log('debug')
-    if (seed > .5) {
-      for (let i in this.vPosition.buffer) {
-        this.vPosition.buffer[i] += 0.5
-      }
-
-      this.uniforms.fColor.buffer = Color.yellow.flatten()
-    } else {
-      for (let i in this.vPosition.buffer) {
-        this.vPosition.buffer[i] -= 0.5
-      }
-      this.uniforms.fColor.buffer = Color.red.flatten()
-    }
-    */
-  }
-
   render () {
     const mesh = this.gameObject.getComponent(Mesh)
     if (!mesh) {
@@ -114,7 +90,10 @@ class Renderer extends Component {
       this.attributes.vPosition.buffer = []
       return
     }
-    this.attributes.vPosition.buffer = mesh.getVertexArrayBuffer()
+
+    const vPos = mesh.getVertexArrayBuffer()
+    this.attributes.vPosition.buffer = vPos.buffer
+    this.attributes.vPosition.size = vPos.size
 
     const gl = Game.gl
     gl.useProgram(this.shaderProgram)
@@ -165,6 +144,11 @@ class Renderer extends Component {
 
     gl.bufferData(gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW)
 
+    this.onDrawCall()
+  }
+
+  onDrawCall () {
+    const gl = Game.gl
     gl.drawArrays(gl.TRIANGLES, this.vPosition._pos,
       Math.floor(this.vPosition.buffer.length / this.vPosition.size))
   }
