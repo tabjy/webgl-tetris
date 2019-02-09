@@ -5,5 +5,6 @@ import test from './tetris/test'
 
 (() => {
   const canvas = document.querySelector('#canvas')
-  test.start(canvas)
+  // test.start(canvas)
+  tetris.start(canvas)
 })()

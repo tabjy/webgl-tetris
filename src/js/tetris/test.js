@@ -51,7 +51,6 @@ class Animator extends Behavior {
   }
 }
 
-
 function start (canvasElem) {
   canvas = canvasElem
 

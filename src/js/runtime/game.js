@@ -36,6 +36,10 @@ class Game {
     // setTimeout(animationFrameCallback, 0)
   }
 
+  static setClearColor (color) {
+    Game.gl.clearColor(...color.flatten())
+  }
+
   static onUpdateHandler () {
     const now = new Date()
     if (!Game._lastFrameTime) {
@@ -94,6 +98,6 @@ class Game {
 }
 
 // default settings
-Game.FIXED_UPDATE_RATE = 60 // default to 60Hz
+Game.FIXED_UPDATE_RATE = 20 // default to 20Hz
 
 export default Game

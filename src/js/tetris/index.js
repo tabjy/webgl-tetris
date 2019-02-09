@@ -1,4 +1,6 @@
-import { Game, AssetManager, Color, Vector2 } from '../runtime'
+import { Game, AssetManager, Vector2, Color } from '../runtime'
+
+import Grid from './game_objects/grid'
 
 import manifest from '../manifest'
 import FPSCounter from './behaviors/fps_counter'
@@ -28,7 +30,18 @@ function main () {
   // DEBUG: expose the entire state tree for debugging
   window.Game = Game
 
-  window.Game.world.addComponent(FPSCounter)
+  Game.setClearColor(Color.black)
+
+  Game.world.addComponent(FPSCounter)
+
+  const grid = new Grid()
+  // DEBUG
+  window.grid = grid
+  grid.setDimension(20, 10)
+  grid.transform.translate(new Vector2(-5, 0))
+  grid.transform.setParent(Game.world.transform)
+
+  Game.world.transform.scale(new Vector2(1 / 11, 1 / 11))
 }
 
 export default {
