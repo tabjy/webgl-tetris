@@ -26,14 +26,14 @@ class Animator extends Behavior {
     this.rotation = Math.PI / 180 * degreePerSecond / 1000
   }
 
-  setZoomAnimation (enabled) {
+  setZoomAnimation (enabled, baseScaling) {
     this.zoomEnabled = enabled
     this.zoom = 0
+    this.baseScaling = baseScaling
   }
 
   onStart () {
     super.onStart()
-
     this.setRotation(0)
   }
 
@@ -44,8 +44,9 @@ class Animator extends Behavior {
 
     if (this.zoomEnabled) {
       this.zoom += 0.01
-      this.transform.scaling.x = Math.sin(this.zoom)
-      this.transform.scaling.y = 1
+      this.transform.scaling = this.baseScaling.mul(Math.sin(this.zoom))
+      // this.transform.scaling.x = oldTransform.mul(Math.sin(this.zoom))
+      // this.transform.scaling.y = Math.sin(this.zoom)
     }
   }
 }
@@ -79,38 +80,38 @@ function main () {
   const background = new Square()
   background.setColor(Color.black)
   background.transform.scale(new Vector2(2, 2))
-  background.getComponent(Animator).setZoomAnimation(true)
-  background.getComponent(Animator).setRotation(-45)
+  background.getComponent(Animator).setZoomAnimation(true, background.transform.scaling)
+  background.getComponent(Animator).setRotation(45)
 
   const square = new Square()
   square.setColor(Color.red)
   square.transform.scale(new Vector2(0.5, 0.5))
   square.transform.translate(new Vector2(0.25, 0.25))
-  // square.getComponent(Animator).setRotation(-45)
+  square.getComponent(Animator).setRotation(-45)
 
   const square2 = new Square()
   square2.setColor(Color.blue)
   square2.transform.scale(new Vector2(0.5, 0.5))
   square2.transform.translate(new Vector2(-0.25, -0.25))
-  // square2.getComponent(Animator).setRotation(45)
+  square2.getComponent(Animator).setRotation(45)
 
   const square3 = new Square()
   square3.setColor(Color.green)
   square3.transform.scale(new Vector2(0.5, 0.5))
   square3.transform.translate(new Vector2(0.25, -0.25))
-  // square3.getComponent(Animator).setRotation(0)
+  square3.getComponent(Animator).setRotation(0)
 
   const square4 = new Square()
   square4.setColor(Color.magenta)
   square4.transform.scale(new Vector2(0.5, 0.5))
   square4.transform.translate(new Vector2(-0.25, 0.25))
-  // square4.getComponent(Animator).setRotation(-90)
+  square4.getComponent(Animator).setRotation(-90)
 
   const square5 = new Square()
   square5.setColor(Color.yellow)
   square5.transform.scale(new Vector2(0.5, 0.5))
   square5.getComponent(Animator).setRotation(-45)
-  // square5.getComponent(Animator).setZoomAnimation(true)
+  square5.getComponent(Animator).setZoomAnimation(true, square.transform.scaling)
 
   square.transform.setParent(background.transform)
   square2.transform.setParent(background.transform)

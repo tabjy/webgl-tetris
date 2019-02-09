@@ -65,8 +65,8 @@ class Transform extends Component {
     ret.position.x *= parentWorldTransform.scaling.x
     ret.position.y *= parentWorldTransform.scaling.y
 
-    // ret.position.x += parentWorldTransform.position.x
-    // ret.position.y += parentWorldTransform.position.y
+    ret.position.x += parentWorldTransform.position.x
+    ret.position.y += parentWorldTransform.position.y
 
     ret.scaling = ret.scaling.mul(parentWorldTransform.scaling)
     return ret

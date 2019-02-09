@@ -25,10 +25,11 @@ class Mesh extends Component {
     const worldTransform = localTransform.toWorldTransform()
 
     for (let vertex of this.vertices) {
-      let x = vertex.x * worldTransform.scaling.x * Math.cos(worldTransform.rotation) - vertex.y *
-        worldTransform.scaling.y * Math.sin(worldTransform.rotation)
-      let y = vertex.x * worldTransform.scaling.x * Math.sin(worldTransform.rotation) + vertex.y *
-        worldTransform.scaling.y * Math.cos(worldTransform.rotation)
+      let x = vertex.x * Math.cos(worldTransform.rotation) - vertex.y * Math.sin(worldTransform.rotation)
+      let y = vertex.x * Math.sin(worldTransform.rotation) + vertex.y * Math.cos(worldTransform.rotation)
+
+      x *= worldTransform.scaling.x
+      y *= worldTransform.scaling.y
 
       x += worldTransform.position.x
       y += worldTransform.position.y
