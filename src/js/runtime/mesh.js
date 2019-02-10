@@ -6,10 +6,10 @@ class Mesh extends Component {
     super(gameObject)
 
     this.vertices = [
-      new Vector2(0.25, 0.25),
-      new Vector2(-0.25, 0.25),
-      new Vector2(-0.25, -0.25),
-      new Vector2(0.25, -0.25)
+      new Vector2(0.5, 0.5),
+      new Vector2(-0.5, 0.5),
+      new Vector2(-0.5, -0.5),
+      new Vector2(0.5, -0.5)
     ] // Vector2 array
 
     this.colors = [] // Color array

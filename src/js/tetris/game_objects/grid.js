@@ -1,4 +1,5 @@
 import { Color, GameObject, Mesh, Renderer } from '../../runtime'
+
 import GridMesh from '../meshes/grid_mesh'
 import LineRenderer from '../renderers/line_renderer'
 

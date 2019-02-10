@@ -4,6 +4,8 @@ import GameObject from './game_object'
 
 class Game {
   static init (canvasElem) {
+    Game.canvas = canvasElem
+
     Game._lastFrameTime = null
     Game.deltaTime = 0
 
@@ -36,7 +38,7 @@ class Game {
     // setTimeout(animationFrameCallback, 0)
   }
 
-  static setClearColor (color) {
+  static clearColor (color) {
     Game.gl.clearColor(...color.flatten())
   }
 

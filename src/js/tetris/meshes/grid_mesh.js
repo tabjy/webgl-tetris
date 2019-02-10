@@ -16,13 +16,13 @@ class GridMesh extends Mesh {
   setDimension (nRow, nCol) {
     this.vertices = []
     for (let i = 0; i <= nRow; i++) {
-      this.vertices.push(new Vector2(-nCol / 2, nRow / 2 - i))
-      this.vertices.push(new Vector2(nCol / 2, nRow / 2 - i))
+      this.vertices.push(new Vector2(0, i))
+      this.vertices.push(new Vector2(nCol, i))
     }
 
     for (let i = 0; i <= nCol; i++) {
-      this.vertices.push(new Vector2(nCol / 2 - i, nRow / 2))
-      this.vertices.push(new Vector2(nCol / 2 - i, -nRow / 2))
+      this.vertices.push(new Vector2(i, 0))
+      this.vertices.push(new Vector2(i, nRow))
     }
 
     this.faces = []
@@ -30,42 +30,6 @@ class GridMesh extends Mesh {
       this.faces.push(i)
     }
   }
-
-  /*
-  setDimension (nRow, nCol) {
-    let unitLength = 0
-    let leftStart = 0
-    let topStart = 0
-
-    if (nRow > nCol) {
-      unitLength = 2 / nRow
-      topStart = 1
-      leftStart = -unitLength * nCol / 2
-    } else {
-      unitLength = 2 / nCol
-      leftStart = 1
-      topStart = unitLength * nRow / 2
-    }
-
-    // const unitLength = nRow > nCol ? 2 / nRow : 2 / nCol
-
-    this.vertices = []
-    for (let i = 0; i <= nRow; i++) {
-      this.vertices.push(new Vector2(leftStart, topStart - unitLength * i))
-      this.vertices.push(new Vector2(-leftStart, topStart - unitLength * i))
-    }
-
-    for (let i = 0; i <= nCol; i++) {
-      this.vertices.push(new Vector2(leftStart + unitLength * i, topStart))
-      this.vertices.push(new Vector2(leftStart + unitLength * i, -topStart))
-    }
-
-    this.faces = []
-    for (let i = 0; i < this.vertices.length; i++) {
-      this.faces.push(i)
-    }
-  }
-  */
 }
 
 export default GridMesh
