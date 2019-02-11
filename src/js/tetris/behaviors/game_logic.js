@@ -1,5 +1,4 @@
 import { Behavior, Vector2 } from '../../runtime'
-import Square from '../game_objects/square'
 import Tile from '../game_objects/Tile'
 import TileMovement from './tile_movement'
 
@@ -18,7 +17,9 @@ class GameLogic extends Behavior {
       }
     }
 
-    this.activeTile = this.spawnTile()
+    setTimeout(() => {
+      this.activeTile = this.spawnTile()
+    }, 2000)
 
     window.addEventListener('keydown', (e) => {
       if (!this.activeTile) {
@@ -65,6 +66,10 @@ class GameLogic extends Behavior {
       this.activeTile = null
 
       this.testElimination()
+
+      setTimeout(() => {
+        this.activeTile = this.spawnTile()
+      }, 2000)
     }
   }
 
@@ -72,6 +77,12 @@ class GameLogic extends Behavior {
     const tile = new Tile()
     tile.transform.setParent(this.transform)
     tile.transform.position = (new Vector2(5, 18)).add(tile.spawnOffset)
+
+    if (tile.getComponent(TileMovement).detectCollision()) {
+      document.write('game over. refresh to play again<br />')
+      // TODO: stop main loop
+    }
+
     return tile
   }
 
@@ -135,10 +146,6 @@ class GameLogic extends Behavior {
       }
 
     }
-
-    setTimeout(() => {
-      this.activeTile = this.spawnTile()
-    }, 2000)
   }
 }
 
