@@ -31,11 +31,10 @@ class Transform extends Component {
     this.rotation += dTheta
   }
 
-  // a copy of `this' relative directly to Game.world
-  toWorldTransform () {
+  toAncestorTransform (ancestor) {
     const ret = new Transform()
     ret.gameObject = this.gameObject
-    if (this === Game.world.transform) {
+    if (this === ancestor) {
       ret.position = new Vector2(0, 0)
       ret.scaling = new Vector2(1, 1)
       ret.rotation = 0
@@ -43,33 +42,38 @@ class Transform extends Component {
     }
 
     if (!this.parent) {
-      throw new Error(`${this.name} is not attached to Game.world`)
+      throw new Error(`${ancestor.name} not found`)
     }
 
     ret.position = this.position.mul(1) // create a copy
     ret.scaling = this.scaling.mul(1)
     ret.rotation = this.rotation
-    if (this.parent === Game.world.transform) {
+    if (this.parent === ancestor) {
       return ret
     }
 
-    const parentWorldTransform = this.parent.toWorldTransform()
+    const parentAncestorTransform = this.parent.toAncestorTransform(ancestor)
 
-    ret.rotation = parentWorldTransform.rotation + this.rotation
+    ret.rotation = parentAncestorTransform.rotation + this.rotation
 
-    ret.position.x = this.position.x * Math.cos(parentWorldTransform.rotation) -
-      this.position.y * Math.sin(parentWorldTransform.rotation)
-    ret.position.y = this.position.x * Math.sin(parentWorldTransform.rotation) +
-      this.position.y * Math.cos(parentWorldTransform.rotation)
+    ret.position.x = this.position.x * Math.cos(parentAncestorTransform.rotation) -
+      this.position.y * Math.sin(parentAncestorTransform.rotation)
+    ret.position.y = this.position.x * Math.sin(parentAncestorTransform.rotation) +
+      this.position.y * Math.cos(parentAncestorTransform.rotation)
 
-    ret.position.x *= parentWorldTransform.scaling.x
-    ret.position.y *= parentWorldTransform.scaling.y
+    ret.position.x *= parentAncestorTransform.scaling.x
+    ret.position.y *= parentAncestorTransform.scaling.y
 
-    ret.position.x += parentWorldTransform.position.x
-    ret.position.y += parentWorldTransform.position.y
+    ret.position.x += parentAncestorTransform.position.x
+    ret.position.y += parentAncestorTransform.position.y
 
-    ret.scaling = ret.scaling.mul(parentWorldTransform.scaling)
+    ret.scaling = ret.scaling.mul(parentAncestorTransform.scaling)
     return ret
+  }
+
+  // a copy of `this' relative directly to Game.world
+  toWorldTransform () {
+    return this.toAncestorTransform(Game.world.transform)
   }
 
   setParent (parent) {

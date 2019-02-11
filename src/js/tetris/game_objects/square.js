@@ -1,4 +1,4 @@
-import { Color, GameObject, Mesh, Renderer, Vector2 } from '../../runtime'
+import { Color, GameObject, Mesh, Renderer } from '../../runtime'
 import SquareRenderer from '../renderers/square_renderer'
 
 class Square extends GameObject {
