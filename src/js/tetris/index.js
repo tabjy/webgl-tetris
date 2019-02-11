@@ -46,6 +46,8 @@ function main () {
   root.transform.setParent(grid.transform)
 
   Game.world.transform.scale(new Vector2(1 / 11, 1 / 11))
+
+  Game.start()
 }
 
 export default {

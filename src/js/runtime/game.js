@@ -22,7 +22,9 @@ class Game {
     Game.gl.vBuffer = gl.createBuffer()
 
     Game.world = new GameObject('World')
+  }
 
+  static start () {
     setInterval(Game.onFixedUpdateHandler, 1000 / Game.FIXED_UPDATE_RATE)
 
     const animationFrameCallback = () => {
@@ -31,11 +33,9 @@ class Game {
       Game.onLateUpdateHandler()
 
       window.requestAnimationFrame(animationFrameCallback)
-      // setTimeout(animationFrameCallback, 0)
     }
     // TODO: polyfill for old browsers
     window.requestAnimationFrame(animationFrameCallback)
-    // setTimeout(animationFrameCallback, 0)
   }
 
   static clearColor (color) {

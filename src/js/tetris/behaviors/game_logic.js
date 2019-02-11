@@ -6,8 +6,8 @@ class GameLogic extends Behavior {
   onStart () {
     super.onStart()
 
-    // DEBUG
-    window.gameLogic = this
+    this.activeTile = null
+    this.nextTile = null
 
     this.stacked = []
     for (let i = 0; i < 20; i++) {
