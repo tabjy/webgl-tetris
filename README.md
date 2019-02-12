@@ -55,7 +55,7 @@ All features documented in assignment description, namely,
 
 In addition to required features, efforts are put into followings,
 - an Unity3D-like scripting runtime API, with classes `AssetManager`, `Behavior`, `Color`, `Component`, `Game`, `GameObject`, `Mesh`, `Renderer`, `Transform`, and `Vector2`, located under `src/runtime`.
-	- `AssetManager`: loads remote asssets asynchronously
+	- `AssetManager`: loads remote assets asynchronously
 	- `GameObject`:  servers multiple purposes by attaching with different `Component` classes, which inherent from:
 		- `Behavior`: provides `onStart`, `onUpdate`, `onLateUpdate`, `onFixedUpdate` scripting interfaces
 		- `Mesh`: defines vertices and faces for that will be passed to shaders, converts local `Transforms` to WebGL clip coordinates
@@ -75,6 +75,6 @@ In addition to required features, efforts are put into followings,
 
 ## 3rd-Party Codes
 
-All 3rd-part codes are development-dependencies, and mostly used for Webpack packaging/integration. No 3rd-party codes are required at run time. No 3rd-part code is related to rendering, 2D transformations, linear algebra, or game logic. For a comprehensive list of these 3-rd party modules, please see `package.json`.
+All 3rd-part codes are development-dependencies, and mostly used for Webpack packaging/integration. No 3rd-party codes are required at run time. No 3rd-part code is related to rendering, 2D transformations, linear algebra, or game logic. For a comprehensive list of these modules, please see `package.json`.
 
 **I claim full ownership of all code that's running while grading.**
