@@ -31,7 +31,7 @@ class AssetManager {
   static fetch () {
     const shaders = AssetManager.manifest['shaders'] || []
     for (let shader of shaders) {
-      AssetManager.promises.push(fetch(shader.url).then((res) => {
+      AssetManager.promises.push(window.fetch(shader.url).then((res) => {
         return res.text()
       }).then((src) => {
         shader = { ...shader, src }

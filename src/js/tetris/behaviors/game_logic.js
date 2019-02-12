@@ -1,4 +1,4 @@
-import { Behavior, GameObject, Vector2 } from '../../runtime'
+import { Behavior, GameObject, Vector2, Game } from '../../runtime'
 import Tile from '../game_objects/Tile'
 import TileMovement from './tile_movement'
 

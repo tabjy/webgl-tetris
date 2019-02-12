@@ -5,7 +5,7 @@ class Vector2 {
 
   get normalized () {
     const mag = this.magnitude
-    return new Vector2(x / mag, y / mag)
+    return new Vector2(this.x / mag, this.y / mag)
   }
 
   constructor (x, y) {

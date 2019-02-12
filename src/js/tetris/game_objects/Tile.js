@@ -35,7 +35,7 @@ Tile.patterns = [
       new Vector2(-0.5, -0.5),
       new Vector2(0.5, -0.5)
     ],
-    rotations: [0],
+    rotations: [0]
   },
   {
     name: 'I-shape',
@@ -73,7 +73,7 @@ Tile.patterns = [
       new Vector2(-1, 0),
       new Vector2(0, 0),
       new Vector2(1, 0),
-      new Vector2(1, -1)
+      new Vector2(-1, -1)
     ],
     rotations: [0, Math.PI / 2, Math.PI, Math.PI * (3 / 2)]
   },

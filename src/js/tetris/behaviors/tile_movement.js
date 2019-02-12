@@ -1,4 +1,4 @@
-import { Behavior, Vector2 } from '../../runtime'
+import { Behavior, Vector2, Game } from '../../runtime'
 import GameLogic from './game_logic'
 
 class TileMovement extends Behavior {

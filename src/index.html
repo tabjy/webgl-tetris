@@ -34,13 +34,16 @@
                 <p>Highest Score: <code><span id="highest_score"></span></code></p>
                 <p>
                     Falling Mode:
-                    <input id='falling_mode_discrete' type="radio" name="falling_mode" value="discrete" checked> Discrete
+                    <input id='falling_mode_discrete' type="radio" name="falling_mode" value="discrete" checked>
+                    Discrete
                     <input id='falling_mode_continuous' type="radio" name="falling_mode" value="continuous"> Continuous
                 </p>
                 <p>
                     Falling Speed:
                     <input id="falling_speed_in" type="range" min="1" max="100" value="20">
                     <span id="falling_speed"> 2 </span> units/sec
+                    <br>
+                    <p>WARNING: high falling speed may cause collision detection physics to misbehave.</p>
                 </p>
                 <p>
                     <button id='start_game' class="button">Start/Restart Game</button>

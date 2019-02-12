@@ -1,4 +1,4 @@
-import { Renderer } from '../../runtime'
+import { Renderer, Game } from '../../runtime'
 
 class LineRenderer extends Renderer {
   setColor (color) {

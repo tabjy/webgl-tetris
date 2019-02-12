@@ -61,7 +61,6 @@ class UI extends Behavior {
     this.gameRoot = root
   }
 
-
   // DOM operation is expensive, output when onFixedUpdate
   // avoid blocking rendering
   onFixedUpdate () {

@@ -1,8 +1,9 @@
 class Util {
   // deep clone
   static clone (src, dst) {
-    if (src === null || typeof src !== 'object')
+    if (src === null || typeof src !== 'object') {
       return src
+    }
 
     const ret = dst || {}
 

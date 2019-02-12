@@ -29,9 +29,6 @@ function main () {
   Game.init(canvas)
   Game.clearColor(Color.black)
 
-  // DEBUG: expose the entire state tree for debugging
-  window.Game = Game
-
   const grid = new Grid()
   grid.setDimension(20, 10)
   grid.transform.translate(new Vector2(-8, -10))

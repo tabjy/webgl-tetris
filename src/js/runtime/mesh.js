@@ -1,5 +1,6 @@
 import Component from './component'
 import { Vector2 } from './vectors'
+import Game from './game'
 
 class Mesh extends Component {
   constructor (gameObject) {
