@@ -3,19 +3,57 @@
 <head>
     <meta charset="utf-8">
     <title><%= require('../package.json').name %></title>
+
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+    <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+    <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
 </head>
 <body class="d-flex flex-column h-100">
 <main role="main" class="flex-shrink-0">
     <div class="container">
-        <h1 class="mt-5"><%= require('../package.json').name %></h1>
-        <p class="lead"><%= require('../package.json').description %></p>
-        <hr/>
-        <canvas id="canvas" height="512" width="512">
-            <p>Your browser is too old to support <code>canvas</code> API.</p>
-        </canvas>
-        <hr/>
-        <h2>Debug Info & Options:</h2>
-        <p>FPS: <span id="fps"></span></p>
+        <div class="row">
+            <div class="column">
+                <h1 class="mt-5"><%= require('../package.json').name %></h1>
+                <p class="lead"><%= require('../package.json').description %></p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column">
+                <canvas id="canvas" height="512" width="512" tabindex="1">
+                    <p>Your browser is too old to support <code>canvas</code> API.</p>
+                </canvas>
+            </div>
+
+            <div class="column">
+                <h2>Game Stats & Options:</h2>
+                <p>FPS: <code><span id="fps"></span></code></p>
+                <p>Game State: <code><span id="game_state"></span></code></p>
+                <p>Next Tile: <code><span id="next_tile"></span></code></p>
+                <p>Current Score: <code><span id="current_score"></span></code></p>
+                <p>Highest Score: <code><span id="highest_score"></span></code></p>
+                <p>
+                    Falling Mode:
+                    <input id='falling_mode_discrete' type="radio" name="falling_mode" value="discrete" checked> Discrete
+                    <input id='falling_mode_continuous' type="radio" name="falling_mode" value="continuous"> Continuous
+                </p>
+                <p>
+                    Falling Speed:
+                    <input id="falling_speed_in" type="range" min="1" max="100" value="20">
+                    <span id="falling_speed"> 2 </span> units/sec
+                </p>
+                <p>
+                    <button id='start_game' class="button">Start/Restart Game</button>
+                </p>
+            </div>
+        </div>
+
+        <br/>
+        <div class="row">
+            <div class="column">
+                <p>Click on <code>canvas</code> to focus input. See <code>README.md</code> for more information.</p>
+            </div>
+        </div>
     </div>
 </main>
 </body>

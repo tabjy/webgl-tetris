@@ -26,11 +26,12 @@ class GameLogic extends Behavior {
 
     this.nextTileDisplay = new GameObject()
     this.nextTileDisplay.transform.setParent(this.transform)
-    this.nextTileDisplay.transform.position = new Vector2(13, 10)
+    this.nextTileDisplay.transform.position = (new Vector2(14, 10))
 
     this.state = GameLogic.STATES.READY
+    this.score = 0
 
-    window.addEventListener('keydown', (e) => {
+    Game.canvas.addEventListener('keydown', (e) => {
       if (this.state !== GameLogic.STATES.PLAYING) {
         return
       }
@@ -50,11 +51,13 @@ class GameLogic extends Behavior {
           this.activeTile.getComponent(TileMovement).rotate()
           break
         case 'ArrowDown':
-          this.activeTile.getComponent(TileMovement).setFallingVelocity(TileMovement.defaultFallingVelocity.mul(5))
+          this.activeTile.getComponent(TileMovement).setFallingVelocityMultiplier(5)
       }
+
+      e.preventDefault()
     })
 
-    window.addEventListener('keyup', (e) => {
+    Game.canvas.addEventListener('keyup', (e) => {
       if (this.state !== GameLogic.STATES.PLAYING) {
         return
       }
@@ -65,9 +68,11 @@ class GameLogic extends Behavior {
 
       switch (e.key) {
         case 'ArrowDown':
-          this.activeTile.getComponent(TileMovement).setFallingVelocity(TileMovement.defaultFallingVelocity)
+          this.activeTile.getComponent(TileMovement).setFallingVelocityMultiplier(1)
           break
       }
+
+      e.preventDefault()
     })
   }
 
@@ -109,7 +114,6 @@ class GameLogic extends Behavior {
     this.nextTile.transform.translate(this.nextTile.spawnOffset)
 
     if (this.activeTile.getComponent(TileMovement).detectCollision()) {
-      console.log('game over. refresh to play again<br />')
       this.state = GameLogic.STATES.GAME_OVER
     }
   }
@@ -128,10 +132,14 @@ class GameLogic extends Behavior {
       square.transform.setParent(this.transform)
     }
 
+    this.score += tile.squares.length * 5
+
     tile.transform.setParent(null)
   }
 
   testElimination () {
+    let rowEliminated = 0
+
     for (let i = 0; i < 20; i++) {
       let eliminate = false
       for (let ii = 0; ii < 10; ii++) {
@@ -141,6 +149,7 @@ class GameLogic extends Behavior {
 
         if (ii === 9) {
           eliminate = true
+          rowEliminated++
         }
       }
 
@@ -150,6 +159,10 @@ class GameLogic extends Behavior {
         }
         this.stacked[i] = null
       }
+    }
+
+    if (rowEliminated > 0) {
+      this.score += 10 * 5 * 2 ** (rowEliminated - 1)
     }
 
     // falling down
@@ -172,7 +185,6 @@ class GameLogic extends Behavior {
       for (let ii = 0; ii < 10; ii++) {
         this.stacked[i][ii] = null
       }
-
     }
   }
 }
@@ -180,7 +192,8 @@ class GameLogic extends Behavior {
 GameLogic.STATES = {
   READY: Symbol('GameLogic.STATES.READY'),
   PLAYING: Symbol('GameLogic.STATES.PLAYING'),
-  GAME_OVER: Symbol('GameLogic.STATES.GAME_OVER')
+  GAME_OVER: Symbol('GameLogic.STATES.GAME_OVER'),
+  PAUSED: Symbol('GameLogic.STATES.PAUSED')
 }
 
 export default GameLogic

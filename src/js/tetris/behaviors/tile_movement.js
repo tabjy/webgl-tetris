@@ -11,7 +11,8 @@ class TileMovement extends Behavior {
     this.rotationIdx = Math.floor(Math.random() * this.rotations.length)
     this.transform.rotation = this.rotations[this.rotationIdx]
 
-    this.fallingVelocity = TileMovement.defaultFallingVelocity.mul(1)
+    this.fallingVelocityMultiplier = 1
+    this.previousFallingMode = TileMovement.fallingMode
 
     this.continousFallingAcc = 0
   }
@@ -30,12 +31,18 @@ class TileMovement extends Behavior {
       return
     }
 
-    let translation = this.fallingVelocity.mul(deltaTime / 1000)
+    const fallingVelocity = TileMovement.defaultFallingVelocity.mul(this.fallingVelocityMultiplier)
+
+    let translation = fallingVelocity.mul(deltaTime / 1000)
 
     if (TileMovement.fallingMode === TileMovement.FALLING_MODES.DISCRETE) {
+      if (this.previousFallingMode === TileMovement.FALLING_MODES.CONTINUOUS) {
+        this.transform.position.y = Math.floor(this.transform.position.y)
+      }
+
       this.continousFallingAcc += deltaTime
 
-      const step = 1000 / Math.abs(this.fallingVelocity.y)
+      const step = 1000 / Math.abs(fallingVelocity.y)
       if (this.continousFallingAcc >= step) {
         this.continousFallingAcc %= step
         translation = Vector2.down
@@ -43,6 +50,8 @@ class TileMovement extends Behavior {
         return
       }
     }
+
+    this.previousFallingMode = TileMovement.fallingMode
 
     if (this.detectCollision(translation)) {
       // this is why I hate js for only having floating point numbers
@@ -143,8 +152,8 @@ class TileMovement extends Behavior {
     }
   }
 
-  setFallingVelocity (velocity) {
-    this.fallingVelocity = velocity
+  setFallingVelocityMultiplier (multiplier) {
+    this.fallingVelocityMultiplier = multiplier
   }
 }
 

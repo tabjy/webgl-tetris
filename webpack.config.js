@@ -18,14 +18,14 @@ module.exports = {
   module: {
     rules: [
       {
-        // SASS/SCSS
-        test: /\.scss$/,
+        // CSS
+        test: /\.css$/,
         use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          'sass-loader'
+          'style-loader',
+          'css-loader'
         ]
-      }, {
+      },
+      {
         // GLSL
         test: /\.(glsl|vs|fs|vert|frag)$/,
         exclude: /node_modules/,

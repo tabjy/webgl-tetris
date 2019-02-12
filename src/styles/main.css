@@ -1,0 +1,21 @@
+body {
+  color: rgb(190, 186, 179);
+}
+
+html, body, input, textarea, select, button {
+  border-color: #575757;
+  background-color: #17181c;
+  color: #e8e7e3;
+}
+
+code {
+  background-image: initial;
+  background-color: rgb(26, 28, 31);
+}
+
+canvas {
+  border: 2px dashed orange;
+  margin: auto;
+  display: block;
+}
+

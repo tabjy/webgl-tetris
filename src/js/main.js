@@ -1,7 +1,7 @@
-import '../styles/main.scss'
+import '../styles/main.css'
 
 import tetris from './tetris'
-import test from './tetris/test'
+// import test from './tetris/test'
 
 (() => {
   const canvas = document.querySelector('#canvas')
