@@ -38,6 +38,9 @@ class TileMovement extends Behavior {
     if (TileMovement.fallingMode === TileMovement.FALLING_MODES.DISCRETE) {
       if (this.previousFallingMode === TileMovement.FALLING_MODES.CONTINUOUS) {
         this.transform.position.y = Math.floor(this.transform.position.y)
+        if (this.gameObject.pattern.name === 'O-shape') {
+          this.transform.position.y += 0.5
+        }
       }
 
       this.continousFallingAcc += deltaTime

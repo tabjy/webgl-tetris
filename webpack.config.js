@@ -24,8 +24,7 @@ module.exports = {
           'style-loader',
           'css-loader'
         ]
-      },
-      {
+      }, {
         // GLSL
         test: /\.(glsl|vs|fs|vert|frag)$/,
         exclude: /node_modules/,
@@ -33,6 +32,13 @@ module.exports = {
           // 'raw-loader',
           'file-loader',
           'glslify-loader'
+        ]
+      }, {
+        // MD
+        test: /\.md$/,
+        use: [
+          'html-loader',
+          'markdown-loader'
         ]
       }
     ]

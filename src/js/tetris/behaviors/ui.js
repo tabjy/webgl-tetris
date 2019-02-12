@@ -45,6 +45,17 @@ class UI extends Behavior {
     window.document.getElementById('start_game').onclick = () => {
       this.startGame()
     }
+
+    window.document.addEventListener('keyup', (e) => {
+      switch (e.key) {
+        case 'q':
+          this.quitGame()
+          break
+        case 'r':
+          this.startGame()
+          break
+      }
+    })
   }
 
   startGame () {
@@ -59,6 +70,14 @@ class UI extends Behavior {
     root.getComponent(GameLogic).startGame()
 
     this.gameRoot = root
+  }
+
+  quitGame () {
+    if (this.gameRoot) {
+      this.gameRoot.transform.setParent(null)
+    }
+
+    this.gameRoot = null
   }
 
   // DOM operation is expensive, output when onFixedUpdate

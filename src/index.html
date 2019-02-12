@@ -42,8 +42,8 @@
                     Falling Speed:
                     <input id="falling_speed_in" type="range" min="1" max="100" value="20">
                     <span id="falling_speed"> 2 </span> units/sec
-                    <br>
-                    <p>WARNING: high falling speed may cause collision detection physics to misbehave.</p>
+                    <br/>
+                    WARNING: high falling speed may cause collision detection physics to misbehave.
                 </p>
                 <p>
                     <button id='start_game' class="button">Start/Restart Game</button>
@@ -54,7 +54,14 @@
         <br/>
         <div class="row">
             <div class="column">
-                <p>Click on <code>canvas</code> to focus input. See <code>README.md</code> for more information.</p>
+                <p>Click on <code>canvas</code> to focus keyboard input. See <code>README</code> for more information.</p>
+            </div>
+        </div>
+
+        <br/>
+        <div class="row">
+            <div class="column">
+                <%= require('../README.md') %>
             </div>
         </div>
     </div>
