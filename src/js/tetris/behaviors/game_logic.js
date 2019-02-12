@@ -1,13 +1,12 @@
-import { Behavior, Vector2 } from '../../runtime'
+import { Behavior, GameObject, Vector2 } from '../../runtime'
 import Tile from '../game_objects/Tile'
 import TileMovement from './tile_movement'
 
 class GameLogic extends Behavior {
-  onStart () {
-    super.onStart()
-
+  startGame () {
     this.activeTile = null
     this.nextTile = null
+    this.state = GameLogic.STATES.READY
 
     this.stacked = []
     for (let i = 0; i < 20; i++) {
@@ -17,11 +16,25 @@ class GameLogic extends Behavior {
       }
     }
 
-    setTimeout(() => {
-      this.activeTile = this.spawnTile()
-    }, 2000)
+    this.spawnTile()
+
+    this.state = GameLogic.STATES.PLAYING
+  }
+
+  onStart () {
+    super.onStart()
+
+    this.nextTileDisplay = new GameObject()
+    this.nextTileDisplay.transform.setParent(this.transform)
+    this.nextTileDisplay.transform.position = new Vector2(13, 10)
+
+    this.state = GameLogic.STATES.READY
 
     window.addEventListener('keydown', (e) => {
+      if (this.state !== GameLogic.STATES.PLAYING) {
+        return
+      }
+
       if (!this.activeTile) {
         return
       }
@@ -42,6 +55,10 @@ class GameLogic extends Behavior {
     })
 
     window.addEventListener('keyup', (e) => {
+      if (this.state !== GameLogic.STATES.PLAYING) {
+        return
+      }
+
       if (!this.activeTile) {
         return
       }
@@ -57,33 +74,44 @@ class GameLogic extends Behavior {
   onUpdate () {
     super.onUpdate()
 
+    if (this.state !== GameLogic.STATES.PLAYING) {
+      return
+    }
+
     if (!this.activeTile) {
       return
     }
 
-    if (this.activeTile.getComponent(TileMovement).stacked) {
+    if (!this.activeTile.getComponent(TileMovement).enabled) {
       this.stackTile(this.activeTile)
       this.activeTile = null
 
       this.testElimination()
 
       setTimeout(() => {
-        this.activeTile = this.spawnTile()
+        this.spawnTile()
       }, 2000)
     }
   }
 
   spawnTile () {
-    const tile = new Tile()
-    tile.transform.setParent(this.transform)
-    tile.transform.position = (new Vector2(5, 18)).add(tile.spawnOffset)
-
-    if (tile.getComponent(TileMovement).detectCollision()) {
-      document.write('game over. refresh to play again<br />')
-      // TODO: stop main loop
+    if (!this.nextTile) {
+      this.nextTile = new Tile()
     }
 
-    return tile
+    this.activeTile = this.nextTile
+    this.activeTile.transform.setParent(this.transform)
+    this.activeTile.transform.position = (new Vector2(5, 18)).add(this.activeTile.spawnOffset)
+    this.activeTile.getComponent(TileMovement).enabled = true
+
+    this.nextTile = new Tile()
+    this.nextTile.transform.setParent(this.nextTileDisplay.transform)
+    this.nextTile.transform.translate(this.nextTile.spawnOffset)
+
+    if (this.activeTile.getComponent(TileMovement).detectCollision()) {
+      console.log('game over. refresh to play again<br />')
+      this.state = GameLogic.STATES.GAME_OVER
+    }
   }
 
   stackTile (tile) {
@@ -149,6 +177,10 @@ class GameLogic extends Behavior {
   }
 }
 
-GameLogic.fallingSpeed = new Vector2(0, -1) // unit per second
+GameLogic.STATES = {
+  READY: Symbol('GameLogic.STATES.READY'),
+  PLAYING: Symbol('GameLogic.STATES.PLAYING'),
+  GAME_OVER: Symbol('GameLogic.STATES.GAME_OVER')
+}
 
 export default GameLogic

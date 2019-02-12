@@ -37,17 +37,17 @@ function main () {
 
   const grid = new Grid()
   grid.setDimension(20, 10)
-  grid.transform.translate(new Vector2(-5, -10))
+  grid.transform.translate(new Vector2(-8, -10))
   grid.transform.setParent(Game.world.transform)
+
+  Game.world.transform.scale(new Vector2(1 / 11, 1 / 11))
+  Game.start()
 
   const root = new GameObject()
   root.transform.translate(new Vector2(0.5, 0.5))
   root.addComponent(GameLogic)
   root.transform.setParent(grid.transform)
-
-  Game.world.transform.scale(new Vector2(1 / 11, 1 / 11))
-
-  Game.start()
+  root.getComponent(GameLogic).startGame()
 }
 
 export default {

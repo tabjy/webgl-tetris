@@ -5,7 +5,7 @@ class TileMovement extends Behavior {
   onStart () {
     super.onStart()
 
-    this.stacked = false
+    this.enabled = false
 
     this.rotations = this.gameObject.pattern.rotations
     this.rotationIdx = Math.floor(Math.random() * this.rotations.length)
@@ -26,7 +26,7 @@ class TileMovement extends Behavior {
       deltaTime = 50
     }
 
-    if (this.stacked) {
+    if (!this.enabled) {
       return
     }
 
@@ -52,7 +52,7 @@ class TileMovement extends Behavior {
       this.transform.position.x += offset.x
       this.transform.position.y += offset.y
 
-      this.stacked = true
+      this.enabled = false
       return
     }
 
@@ -113,7 +113,7 @@ class TileMovement extends Behavior {
   }
 
   rotate () {
-    if (this.stacked) {
+    if (!this.enabled) {
       return
     }
 
@@ -126,7 +126,7 @@ class TileMovement extends Behavior {
   }
 
   moveLeft () {
-    if (this.stacked) {
+    if (!this.enabled) {
       return
     }
     if (!this.detectCollision(Vector2.left)) {
@@ -135,7 +135,7 @@ class TileMovement extends Behavior {
   }
 
   moveRight () {
-    if (this.stacked) {
+    if (!this.enabled) {
       return
     }
     if (!this.detectCollision(Vector2.right)) {
