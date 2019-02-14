@@ -1,23 +1,20 @@
-# README  
+# WebGL Tetris!
 
-This assignment is tested on Google Chrome 72.0.3626.81 and Firefox 65.0. This should, theoretically, work on all modern browsers, but just try not to grade this on IE.
+## What is this?
 
-## Before You Grade
+This is my first assignment of a computer graphics course I'm currently taking. The topic is very basic, yet fun.
+
+If you are doing a similar assignment for academic purposes, please be sure to acknowledge if you are to read or study my source code. This is most likely required to protect your academic integrity. For all other situations, [MIT license](LICENSE) applies.
+
+## Get Started
 
 **Opening `index.html` directly from file system will *NOT* work!**
 
-For this assignment, Webpack is used to package and transpile JavaScript source code as manually manage and integrate over 10 source modules can be problematic. In addition, shader sources are loaded asynchronously with `window.fetch()` function, which requires remote resources being hosted on a HTTP server. To correctly open this assignment, follow the instruction below.
+This assignment is tested on Google Chrome 72.0.3626.81 and Firefox 65.0. This should, theoretically, work on all modern browsers, but just try not to grade this on IE. Webpack is used to package and transpile JavaScript source code as manually manage and integrate over 10 source modules can be problematic. In addition, shader sources are loaded asynchronously with `window.fetch()` function, which requires remote resources being hosted on a HTTP server. To correctly open this assignment, follow the instruction below.
 
-### Using Pre-built `dist`
+### Online Demo
 
-The source codes in `src` directory are pre-built to `dist` directory, included with this submission. The entry point is `dist/index.html`. Please set up a simple HTTP server on `localhost`:
-
-```
-$ cd dist
-$ python3 -m http.server
-```
-
-Then open your browser and navigate to [http://localhost:8000](http://localhost:8000).
+Simply visit [http://tetris.tabjy.com](http://tetris.tabjy.com).
 
 ### Build from Source
 
@@ -28,7 +25,14 @@ $ npm install
 $ npm run build
 ```
 
-Then follow instructions in the previous section.
+Then, please set up a simple HTTP server on localhost:
+
+```
+$ cd dist
+$ python3 -m http.server
+```
+
+Open your browser and navigate to [http://localhost:8000](http://localhost:8000).
 
 Or, run
 
@@ -39,7 +43,7 @@ $ npm run dev
 
 to start a Webpack local development server on [http://localhost:8080](http://localhost:8080).
 
-If you have any problem with running my assignment, please contact me at [arvinx@sfu.ca](mailto:arvinx@sfu.ca).
+If you have any problem with running my assignment, please submit an issue.
 
 ## Features
 
