@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en-ca">
+<head>
+    <meta charset="utf-8">
+    <title>cmpt361-assign1</title>
+
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+    <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+    <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
+</head>
+<body class="d-flex flex-column h-100">
+<main role="main" class="flex-shrink-0">
+    <div class="container">
+        <div class="row">
+            <div class="column">
+                <h1 class="mt-5">cmpt361-assign1</h1>
+                <p class="lead">CMPT-361 Assignment 1: Tetris!</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column">
+                <canvas id="canvas" height="512" width="512" tabindex="1">
+                    <p>Your browser is too old to support <code>canvas</code> API.</p>
+                </canvas>
+            </div>
+
+            <div class="column">
+                <h2>Game Stats & Options:</h2>
+                <p>FPS: <code><span id="fps"></span></code></p>
+                <p>Game State: <code><span id="game_state"></span></code></p>
+                <p>Next Tile: <code><span id="next_tile"></span></code></p>
+                <p>Current Score: <code><span id="current_score"></span></code></p>
+                <p>Highest Score: <code><span id="highest_score"></span></code></p>
+                <p>
+                    Falling Mode:
+                    <input id='falling_mode_discrete' type="radio" name="falling_mode" value="discrete" checked>
+                    Discrete
+                    <input id='falling_mode_continuous' type="radio" name="falling_mode" value="continuous"> Continuous
+                </p>
+                <p>
+                    Falling Speed:
+                    <input id="falling_speed_in" type="range" min="1" max="100" value="20">
+                    <span id="falling_speed"> 2 </span> units/sec
+                    <br/>
+                    WARNING: high falling speed may cause collision detection physics to misbehave.
+                </p>
+                <p>
+                    <button id='start_game' class="button">Start/Restart Game</button>
+                </p>
+            </div>
+        </div>
+
+        <br/>
+        <div class="row">
+            <div class="column">
+                <p>Click on <code>canvas</code> to focus keyboard input. See <code>README</code> for more information.</p>
+            </div>
+        </div>
+
+        <br/>
+        <div class="row">
+            <div class="column">
+                <h1 id=readme>README</h1> <p>This assignment is tested on Google Chrome 72.0.3626.81 and Firefox 65.0. This should, theoretically, work on all modern browsers, but just try not to grade this on IE.</p> <h2 id=before-you-grade>Before You Grade</h2> <p><strong>Opening <code>index.html</code> directly from file system will <em>NOT</em> work!</strong></p> <p>For this assignment, Webpack is used to package and transpile JavaScript source code as manually manage and integrate over 10 source modules can be problematic. In addition, shader sources are loaded asynchronously with <code>window.fetch()</code> function, which requires remote resources being hosted on a HTTP server. To correctly open this assignment, follow the instruction below.</p> <h3 id=using-pre-built-dist>Using Pre-built <code>dist</code></h3> <p>The source codes in <code>src</code> directory are pre-built to <code>dist</code> directory, included with this submission. The entry point is <code>dist/index.html</code>. Please set up a simple HTTP server on <code>localhost</code>:</p> <pre><code>$ cd dist
+$ python3 -m http.server</code></pre><p>Then open your browser and navigate to <a href=http://localhost:8000>http://localhost:8000</a>.</p> <h3 id=build-from-source>Build from Source</h3> <p>Alternatively, you can build from source. This requires you to have <code>node</code> and <code>npm</code> installed.</p> <pre><code>$ npm install
+$ npm run build</code></pre><p>Then follow instructions in the previous section.</p> <p>Or, run</p> <pre><code>$ npm install
+$ npm run dev</code></pre><p>to start a Webpack local development server on <a href=http://localhost:8080>http://localhost:8080</a>.</p> <p>If you have any problem with running my assignment, please contact me at <a href=mailto:arvinx@sfu.ca>arvinx@sfu.ca</a>.</p> <h2 id=features>Features</h2> <h3 id=required-features>Required Features</h3> <p>All features documented in assignment description, namely,</p> <ul> <li>tile and grid rendering and tile downward movement</li> <li>tile stack-up</li> <li>key stroke interaction and tile movements</li> <li>additional game logic</li> </ul> <h3 id=extra-featuresworks>Extra features/works</h3> <p>In addition to required features, efforts are put into followings,</p> <ul> <li>an Unity3D-like scripting runtime API, with classes <code>AssetManager</code>, <code>Behavior</code>, <code>Color</code>, <code>Component</code>, <code>Game</code>, <code>GameObject</code>, <code>Mesh</code>, <code>Renderer</code>, <code>Transform</code>, and <code>Vector2</code>, located under <code>src/runtime</code>.<ul> <li><code>AssetManager</code>: loads remote assets asynchronously</li> <li><code>GameObject</code>: servers multiple purposes by attaching with different <code>Component</code> classes, which inherent from:<ul> <li><code>Behavior</code>: provides <code>onStart</code>, <code>onUpdate</code>, <code>onLateUpdate</code>, <code>onFixedUpdate</code> scripting interfaces</li> <li><code>Mesh</code>: defines vertices and faces for that will be passed to shaders, converts local <code>Transforms</code> to WebGL clip coordinates</li> <li><code>Renderer</code>: takes vertices positions from a <code>Mesh</code> and populate WebGL buffers, executes shaders</li> <li><code>Transform</code>: defines relative transformation to its parent, supports position, scaling, the rotation, <code>GameObject</code>s with their transforms being decedents of <code>Game.world.transform</code> would be rendered.</li> </ul> </li> <li><code>Color</code>: defines an <code>RGBA</code> color.</li> <li><code>Vector2</code>: represents a 2D vector with algebra functions.</li> <li>This runtime is theoretically sufficient for any 2D presentation.</li> </ul> </li> <li>an FPS counter</li> <li>display of current game information:<ul> <li>game state: <code>GameLogic.STATES.READY</code>, <code>GameLogic.STATES.PLAYING</code>, or <code>GameLogic.STATES.GAME_OVER</code></li> <li>preview of next tile, and the name</li> </ul> </li> <li>scores: current and high score</li> <li>alternative tile falling mode: discrete or continuous</li> <li>adjustable falling velocity</li> <li>a button to start/restart the game</li> </ul> <h2 id=3rd-party-codes>3rd-Party Codes</h2> <p>All 3rd-part codes are development-dependencies, and mostly used for Webpack packaging/integration. No 3rd-party codes are required at run time. No 3rd-part code is related to rendering, 2D transformations, linear algebra, or game logic. For a comprehensive list of these modules, please see <code>package.json</code>.</p> <p><strong>I claim full ownership of all code that&#39;s running while grading.</strong></p> 
+            </div>
+        </div>
+    </div>
+</main>
+<script type="text/javascript" src="bundle.js"></script></body>
+</html>
