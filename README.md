@@ -2,7 +2,7 @@
 
 ## What is this?
 
-First assignment of a computer graphics courst. The topic of the assignment is fundamental and fun.
+First assignment of a computer graphics course. The topic of the assignment is fundamental and fun.
 
 If you are doing a similar assignment for academic purposes and studying my source code, please be sure to acknowledge. This is most likely required to protect your academic integrity. For all other situations, [MIT license](LICENSE) applies.
 
